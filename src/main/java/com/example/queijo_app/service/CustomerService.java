@@ -7,6 +7,8 @@ import com.example.queijo_app.validator.CustomerValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -37,5 +39,15 @@ public class CustomerService {
     public Customer findById(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + id));
+    }
+
+    public List<Customer> findAllCustomers() {
+        return customerRepository.findAll();
+    }
+
+    public void delete(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id:" + id));
+        customerRepository.delete(customer);
     }
 }

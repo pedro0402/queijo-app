@@ -1,10 +1,13 @@
 package com.example.queijo_app.service;
 
+import com.example.queijo_app.exception.CustomerNotFoundException;
 import com.example.queijo_app.model.Customer;
 import com.example.queijo_app.repository.CustomerRepository;
 import com.example.queijo_app.validator.CustomerValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,4 +21,18 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    public Customer update(Customer customer) {
+        if (customer.getId() == null) {
+            throw new IllegalArgumentException("Customer must have an ID to be updated");
+        }
+
+        Customer existingCustomer = customerRepository.findById(customer.getId())
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customer.getId()));
+
+        existingCustomer.setName(customer.getName());
+        existingCustomer.setAddress(customer.getAddress());
+
+        customerValidator.validate(customer);
+        return customerRepository.save(customer);
+    }
 }

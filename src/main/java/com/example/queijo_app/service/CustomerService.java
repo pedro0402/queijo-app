@@ -30,8 +30,8 @@ public class CustomerService {
         existingCustomer.setName(customer.getName());
         existingCustomer.setAddress(customer.getAddress());
 
-        customerValidator.validate(customer);
-        return customerRepository.save(customer);
+        customerValidator.validate(existingCustomer);
+        return customerRepository.save(existingCustomer);
     }
 
     public Customer findById(Long id) {

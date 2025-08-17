@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+    private final CustomerValidator customerValidator;
 
     
 

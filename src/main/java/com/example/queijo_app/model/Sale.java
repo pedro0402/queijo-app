@@ -14,8 +14,8 @@ public class Sale {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "costumer_id")
-    private Costumer costumer;
+    @JoinColumn(name = "customer_id")
+    private Customer costumer;
 
     @NotNull
     @Column(name = "sale_date")

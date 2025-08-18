@@ -36,9 +36,9 @@ public class CustomerService {
         return customerRepository.save(existingCustomer);
     }
 
-    public Customer findById(Long id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + id));
+    public Optional<Customer> findById(Long id) {
+        return Optional.ofNullable(customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + id)));
     }
 
     public List<Customer> findAllCustomers() {

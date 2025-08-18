@@ -31,7 +31,7 @@ public class CustomerController implements GenericController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         customerService.delete(id);
         return ResponseEntity.noContent().build();

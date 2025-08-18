@@ -30,4 +30,10 @@ public class CustomerController implements GenericController {
         URI uri = headerLocation(customer.getId());
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        customerService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

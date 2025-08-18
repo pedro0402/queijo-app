@@ -4,14 +4,10 @@ import com.example.queijo_app.dto.CustomerDTO;
 import com.example.queijo_app.mapper.CustomerMapper;
 import com.example.queijo_app.model.Customer;
 import com.example.queijo_app.service.CustomerService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 

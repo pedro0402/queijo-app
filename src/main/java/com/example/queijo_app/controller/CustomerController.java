@@ -24,7 +24,7 @@ public class CustomerController implements GenericController {
     private final CustomerMapper customerMapper;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid CustomerDTO customerDTO, HttpServletRequest request) {
+    public ResponseEntity<Void> save(@RequestBody @Valid CustomerDTO customerDTO) {
         Customer customer = customerMapper.toEntity(customerDTO);
         customerService.save(customer);
         URI uri = headerLocation(customer.getId());

@@ -1,6 +1,7 @@
 package com.example.queijo_app.controller;
 
 import com.example.queijo_app.dto.CustomerDTO;
+import com.example.queijo_app.helper.NullAwareBeanUtilsBean;
 import com.example.queijo_app.mapper.CustomerMapper;
 import com.example.queijo_app.model.Customer;
 import com.example.queijo_app.service.CustomerService;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 
 @RestController
@@ -18,6 +20,7 @@ public class CustomerController implements GenericController {
 
     private final CustomerService customerService;
     private final CustomerMapper customerMapper;
+    private final NullAwareBeanUtilsBean nullAwareBeanUtilsBean;
 
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody @Valid CustomerDTO customerDTO) {
@@ -31,5 +34,18 @@ public class CustomerController implements GenericController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         customerService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CustomerDTO> patchUpdate(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        try {
+            Customer existingCustomer = customerService.findById(id);
+            nullAwareBeanUtilsBean.copyProperties(existingCustomer, customerMapper.toEntity(customerDTO));
+            customerService.update(existingCustomer);
+            return ResponseEntity.ok(customerMapper.toCustomerDTO(existingCustomer));
+        } catch (InvocationTargetException | IllegalAccessException exception) {
+            throw new RuntimeException("error updating customer ", exception);
+        }
+
     }
 }

@@ -46,6 +46,17 @@ public class CustomerController implements GenericController {
         } catch (InvocationTargetException | IllegalAccessException exception) {
             throw new RuntimeException("error updating customer ", exception);
         }
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerDTO> update(@PathVariable Long id, @RequestBody @Valid CustomerDTO customerDTO) {
+        Customer customer = customerService.findById(id);
+
+        customer.setName(customerDTO.name());
+        customer.setAddress(customerDTO.address());
+
+        customerService.update(customer);
+
+        return ResponseEntity.ok(customerMapper.toCustomerDTO(customer));
     }
 }

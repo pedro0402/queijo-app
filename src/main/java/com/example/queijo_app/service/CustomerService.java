@@ -24,10 +24,7 @@ public class CustomerService {
     }
 
     public Customer update(Customer customer) {
-        if (customer.getId() == null) {
-            throw new OperationNotAllowedException("Customer must have an ID to be updated");
-        }
-
+        
         Customer existingCustomer = customerRepository.findById(customer.getId())
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customer.getId()));
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,5 +59,11 @@ public class CustomerController implements GenericController {
         customerService.update(customer);
 
         return ResponseEntity.ok(customerMapper.toCustomerDTO(customer));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CustomerDTO>> findAllCustomers() {
+        List<Customer> allCustomers = customerService.findAllCustomers();
+        return ResponseEntity.ok(customerMapper.customerToCustomersDTOs(allCustomers));
     }
 }

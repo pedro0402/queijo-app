@@ -66,4 +66,9 @@ public class CustomerController implements GenericController {
         List<Customer> allCustomers = customerService.findAllCustomers();
         return ResponseEntity.ok(customerMapper.customerToCustomersDTOs(allCustomers));
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CustomerDTO> findCustomerById(@PathVariable Long id) {
+        return ResponseEntity.ok(customerMapper.toCustomerDTO(customerService.findById(id)));
+    }
 }

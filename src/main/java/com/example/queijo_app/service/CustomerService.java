@@ -1,7 +1,6 @@
 package com.example.queijo_app.service;
 
 import com.example.queijo_app.exception.CustomerNotFoundException;
-import com.example.queijo_app.exception.OperationNotAllowedException;
 import com.example.queijo_app.model.Customer;
 import com.example.queijo_app.repository.CustomerRepository;
 import com.example.queijo_app.validator.CustomerValidator;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class CustomerService {
     }
 
     public Customer update(Customer customer) {
-        
+
         Customer existingCustomer = customerRepository.findById(customer.getId())
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customer.getId()));
 

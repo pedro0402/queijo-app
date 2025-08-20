@@ -1,6 +1,7 @@
 package com.example.queijo_app.service;
 
 import com.example.queijo_app.exception.CustomerNotFoundException;
+import com.example.queijo_app.exception.OperationNotAllowedException;
 import com.example.queijo_app.model.Customer;
 import com.example.queijo_app.repository.CustomerRepository;
 import com.example.queijo_app.validator.CustomerValidator;
@@ -24,7 +25,7 @@ public class CustomerService {
 
     public Customer update(Customer customer) {
         if (customer.getId() == null) {
-            throw new IllegalArgumentException("Customer must have an ID to be updated");
+            throw new OperationNotAllowedException("Customer must have an ID to be updated");
         }
 
         Customer existingCustomer = customerRepository.findById(customer.getId())
